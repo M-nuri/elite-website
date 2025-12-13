@@ -1,0 +1,79 @@
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indexes
+    </IfModule>
+
+    RewriteEngine On
+
+    # =============================================
+    # Force HTTPS (uncomment in production)
+    # =============================================
+    # RewriteCond %{HTTPS} off
+    # RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+    # =============================================
+    # Security Headers
+    # =============================================
+    <IfModule mod_headers.c>
+        # Prevent Clickjacking
+        Header always set X-Frame-Options "SAMEORIGIN"
+        
+        # Prevent MIME type sniffing
+        Header always set X-Content-Type-Options "nosniff"
+        
+        # Enable XSS Protection
+        Header always set X-XSS-Protection "1; mode=block"
+        
+        # Referrer Policy
+        Header always set Referrer-Policy "strict-origin-when-cross-origin"
+        
+        # Remove Server Information
+        Header unset X-Powered-By
+        Header unset Server
+        
+        # Cache Control for static files
+        <FilesMatch "\.(css|js|jpg|jpeg|png|gif|ico|woff|woff2|ttf|svg|webp)$">
+            Header set Cache-Control "max-age=31536000, public"
+        </FilesMatch>
+    </IfModule>
+
+    # =============================================
+    # Block Sensitive Files
+    # =============================================
+    <FilesMatch "^\.">
+        Order allow,deny
+        Deny from all
+    </FilesMatch>
+    
+    <FilesMatch "\.(env|log|sql|bak|config|ini|sh)$">
+        Order allow,deny
+        Deny from all
+    </FilesMatch>
+
+    # =============================================
+    # Compression
+    # =============================================
+    <IfModule mod_deflate.c>
+        AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript
+        AddOutputFilterByType DEFLATE application/javascript application/x-javascript
+        AddOutputFilterByType DEFLATE application/json application/xml
+    </IfModule>
+
+    # Handle Authorization Header
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    # Handle X-XSRF-Token Header
+    RewriteCond %{HTTP:x-xsrf-token} .
+    RewriteRule .* - [E=HTTP_X_XSRF_TOKEN:%{HTTP:X-XSRF-Token}]
+
+    # Redirect Trailing Slashes If Not A Folder...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} (.+)/$
+    RewriteRule ^ %1 [L,R=301]
+
+    # Send Requests To Front Controller...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+</IfModule>
