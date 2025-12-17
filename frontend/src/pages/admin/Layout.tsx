@@ -67,9 +67,11 @@ const AdminLayout = () => {
         {/* Logo */}
         <div className="flex items-center justify-between h-16 px-6 border-b border-neutral-200 dark:border-neutral-700">
           <Link to="/admin/dashboard" className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-primary-600 to-primary-700 rounded-lg flex items-center justify-center">
-              <span className="text-xl font-bold text-white">E</span>
-            </div>
+            <img
+              src="/logo.png"
+              alt="The United Elite"
+              className="h-10 w-auto"
+            />
             <span className="text-xl font-bold text-neutral-900 dark:text-white">Elite Admin</span>
           </Link>
           <button

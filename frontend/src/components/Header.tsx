@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Bars3Icon, XMarkIcon, SunIcon, MoonIcon, GlobeAltIcon } from '@heroicons/react/24/outline'
-import { useSettingsStore, useThemeStore, useLanguageStore } from '@/store'
+import { useThemeStore, useLanguageStore } from '@/store'
 
 const navigation = [
   { name: 'Home', nameAr: 'الرئيسية', href: '/' },
@@ -16,7 +16,6 @@ const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const location = useLocation()
   
-  const { settings } = useSettingsStore()
   const { theme, toggleTheme } = useThemeStore()
   const { language, toggleLanguage } = useLanguageStore()
 
@@ -46,21 +45,11 @@ const Header = () => {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
-            {settings.site_logo ? (
-              <img
-                src={`/storage/${settings.site_logo}`}
-                alt="The United Elite"
-                className="h-10 w-auto"
-              />
-            ) : (
-              <div className="flex items-center">
-                <span className={`text-2xl font-bold ${
-                  isScrolled || !isHomePage ? 'text-primary-600' : 'text-white'
-                }`}>
-                  {language === 'ar' ? 'النخبة المتحدة' : 'The United Elite'}
-                </span>
-              </div>
-            )}
+            <img
+              src="/logo.png"
+              alt="The United Elite"
+              className="h-12 w-auto"
+            />
           </Link>
 
           {/* Desktop Navigation */}

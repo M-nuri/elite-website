@@ -27,9 +27,11 @@ const Footer = () => {
           {/* Company Info */}
           <div className="lg:col-span-1">
             <Link to="/" className="inline-block mb-6">
-              <span className="text-2xl font-bold text-white">
-                {language === 'ar' ? 'النخبة المتحدة' : 'The United Elite'}
-              </span>
+              <img
+                src="/logo.png"
+                alt="The United Elite"
+                className="h-12 w-auto"
+              />
             </Link>
             <p className="text-neutral-400 mb-6 leading-relaxed">
               {language === 'ar' 

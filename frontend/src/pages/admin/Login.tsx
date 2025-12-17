@@ -52,8 +52,12 @@ const AdminLogin = () => {
         <div className="bg-white dark:bg-neutral-800 rounded-2xl shadow-2xl p-8">
           {/* Logo & Title */}
           <div className="text-center mb-8">
-            <div className="w-16 h-16 bg-gradient-to-br from-primary-600 to-primary-700 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-              <span className="text-2xl font-bold text-white">E</span>
+            <div className="flex items-center justify-center mb-4">
+              <img
+                src="/logo.png"
+                alt="The United Elite"
+                className="h-16 w-auto"
+              />
             </div>
             <h1 className="text-2xl font-bold text-neutral-900 dark:text-white">
               Admin Dashboard
